@@ -282,7 +282,7 @@ Friend Class acctstate
         Try
             If ERPSession Is Nothing Then ERPSession = New acc.Session()
             If ERPSession.IsOpened Then ERPSession.Dispose()
-            ERPSession.Init(ObjectHandle, "AS", "AS0001", "65A")
+            ERPSession.Init(ObjectHandle, "AS", "AS0001", "67A")
 
             If Not Long.TryParse(ObjectHandle, lhWnd) Then
                 MessageBox.Show("Invalid Sage 300 ERP object handle.", "Account Statement Utility", MessageBoxButtons.OK, MessageBoxIcon.[Error])

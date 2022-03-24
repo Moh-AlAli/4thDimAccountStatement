@@ -57,7 +57,7 @@ Friend Class crviewer
     Friend Function Readconnectionstring() As String
 
         Dim secretkey As String = "Fhghqwjehqwlegtoit123mnk12%&4#"
-        Dim path As String = ("txtcon\prucon.txt")
+        Dim path As String = ("txtcon\dimcon.txt")
         Dim sr As New StreamReader(path)
 
         server = sr.ReadLine()
