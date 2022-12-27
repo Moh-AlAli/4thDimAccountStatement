@@ -23,7 +23,7 @@ Friend Class acctstate
 
     Friend Sub New(ByVal ses As acc.Session, ByVal comp As ERPCompany, ByVal sesDate As String)
         InitializeComponent()
-        'ObjectHandle = ""
+        ' ObjectHandle = ""
         ERPSession = ses
         Company = comp
         compid = comp.ID
@@ -48,7 +48,7 @@ Friend Class acctstate
     Private Sub acctstate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             If Not ObjectHandle Is Nothing Then
-
+                SessionFromERP(Handle)
             End If
 
             'mSession.Init("", "GL", "GL0001", "65A")
@@ -117,8 +117,11 @@ Friend Class acctstate
                     '    rdoc = mSession.ReportSelect("SAccountStatement", "", "")
 
                     'End If
-                    Dim f As Form = New crviewer(ObjectHandle, compid, compname, Txtfrmacct.Text, Txttoacct.Text, fdate, tdate, Rbfunc.Checked, RbSrc.Checked, Rbwcl.Checked, Rbwocl.Checked)
+
+
+                    Dim f As Form = New crviewer(ObjectHandle, ERPSession, Txtfrmacct.Text, Txttoacct.Text, fdate, tdate, Rbfunc.Checked, RbSrc.Checked, Rbwcl.Checked, Rbwocl.Checked)
                     f.Show()
+
 
                     'Dim clsopt As String = ""
                     'If Rbwcl.Checked = True Then

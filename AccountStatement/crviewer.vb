@@ -3,6 +3,8 @@ Imports CrystalDecisions.Shared
 Imports System.Security.Cryptography
 Imports System.IO
 Imports System.Text
+Imports acc = ACCPAC.Advantage
+
 
 Friend Class crviewer
     Dim rdoc As New ReportDocument()
@@ -22,10 +24,10 @@ Friend Class crviewer
     Private cwcl As Boolean
     Private cwocl As Boolean
     Friend Property ObjectHandle As String
-    Friend Sub New(ByVal objecthandle As String, ByVal compid As String, ByVal compname As String, ByVal frmacc As String, ByVal toacc As String, ByVal fd As String, ByVal td As String, ByVal rbfun As Boolean, ByVal rbsrc As Boolean, ByVal rbwcl As Boolean, ByVal rbwocl As Boolean)
+    Friend Sub New(ByVal _objecthandle As String, ByVal _sess As acc.Session, ByVal frmacc As String, ByVal toacc As String, ByVal fd As String, ByVal td As String, ByVal rbfun As Boolean, ByVal rbsrc As Boolean, ByVal rbwcl As Boolean, ByVal rbwocl As Boolean)
         InitializeComponent()
-        objecthandle = objecthandle
-        ccompid = compid
+        ObjectHandle = _objecthandle
+        ccompid = _sess.CompanyID
         crbfun = rbfun
         crbsrc = rbsrc
         cfdate = fd
@@ -34,11 +36,11 @@ Friend Class crviewer
         ctoacc = toacc
         cwcl = rbwcl
         cwocl = rbwocl
-        ccompname = compname
+
     End Sub
-    Friend Sub New(ByVal objecthandle As String)
+    Friend Sub New(ByVal _objecthandle As String)
         InitializeComponent()
-        objecthandle = objecthandle
+        ObjectHandle = _objecthandle
     End Sub
     Friend Function createdes(ByVal key As String) As TripleDES
         Dim md5 As MD5 = New MD5CryptoServiceProvider()
@@ -114,44 +116,43 @@ Friend Class crviewer
             Next
 
 
-            'Dim sec As Section
-            'Dim secs As Sections
-            'Dim rob As ReportObject
-            'Dim robs As ReportObjects
-            'Dim subrpobj As SubreportObject
-            'Dim subrp As ReportDocument
-            'Dim crSubTables As Tables
-            'Dim crsubtable As Table
-            'secs = rdoc.ReportDefinition.Sections
-            'Dim crtableLogoninfo As New TableLogOnInfo
-            'Dim ConInfo As New CrystalDecisions.Shared.TableLogOnInfo
-            'Dim subConInfo As New ConnectionInfo
-            'For Each sec In secs
-            '    robs = sec.ReportObjects
-            '    For Each rob In robs
-            '        If rob.Kind = ReportObjectKind.SubreportObject Then
-            '            subrpobj = CType(rob, SubreportObject)
-            '            subrp = subrpobj.OpenSubreport(subrpobj.SubreportName)
-            '            Dim name As String = subrp.Name
+            Dim sec As Section
+            Dim secs As Sections
+            Dim rob As ReportObject
+            Dim robs As ReportObjects
+            Dim subrpobj As SubreportObject
+            Dim subrp As ReportDocument
+            Dim crSubTables As Tables
+            Dim crsubtable As Table
+            secs = rdoc.ReportDefinition.Sections
+            Dim crtableLogoninfo As New TableLogOnInfo
+            Dim ConInfo As New CrystalDecisions.Shared.TableLogOnInfo
+            Dim subConInfo As New ConnectionInfo
+            For Each sec In secs
+                robs = sec.ReportObjects
+                For Each rob In robs
+                    If rob.Kind = ReportObjectKind.SubreportObject Then
+                        subrpobj = CType(rob, SubreportObject)
+                        subrp = subrpobj.OpenSubreport(subrpobj.SubreportName)
+                        Dim name As String = subrp.Name
 
 
-            'If subrp.Name = "openbal" Then
-            '    crSubTables = subrp.Database.Tables
-            '    For Each crsubtable In crSubTables
-            '        crtableLogoninfo = crsubtable.LogOnInfo
-            '        subConInfo.ServerName = server
-            '        subConInfo.DatabaseName = ccompid
-            '        subConInfo.UserID = uid
-            '        subConInfo.Password = pass
-            '        crtableLogoninfo.ConnectionInfo = subConInfo 'ConInfo.ConnectionInfo
-            '        crsubtable.ApplyLogOnInfo(crtableLogoninfo)
-            '    Next
-            'End If
-            'End If
+                        If subrp.Name = "openbal" Then
+                            crSubTables = subrp.Database.Tables
+                            For Each crsubtable In crSubTables
+                                crtableLogoninfo = crsubtable.LogOnInfo
+                                subConInfo.ServerName = server
+                                subConInfo.DatabaseName = ccompid
+                                subConInfo.UserID = uid
+                                subConInfo.Password = pass
+                                crtableLogoninfo.ConnectionInfo = subConInfo 'ConInfo.ConnectionInfo
+                                crsubtable.ApplyLogOnInfo(crtableLogoninfo)
+                            Next
+                        End If
+                    End If
 
-            '    Next
-            'Next
-
+                Next
+            Next
 
 
             rdoc.SetParameterValue("Facctid", cfrmacc)
@@ -159,7 +160,6 @@ Friend Class crviewer
             rdoc.SetParameterValue("Frmdate", fdate)
             rdoc.SetParameterValue("Todate", tdate)
             rdoc.SetParameterValue("clsopt", clsopt)
-            rdoc.SetParameterValue("coname", ccompname)
 
             cryviewer.ReportSource = rdoc
 

@@ -22,6 +22,7 @@ Partial Class crviewer
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(crviewer))
         Me.cryviewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.SuspendLayout()
         '
@@ -43,6 +44,7 @@ Partial Class crviewer
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(504, 261)
         Me.Controls.Add(Me.cryviewer)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "crviewer"
         Me.Text = "Crystal Viewer"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
