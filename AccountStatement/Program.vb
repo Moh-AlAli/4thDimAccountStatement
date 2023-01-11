@@ -19,7 +19,7 @@ Friend Class Program
             Dim ses As Session = New Session()
 
             Try
-                ses.Init("", "XX", "XX1000", "65A")
+                ses.Init("", "XX", "XX1000", "67A")
                 Dim os As Organizations = ses.Organizations
 
                 For Each o As Organization In os
