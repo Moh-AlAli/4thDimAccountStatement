@@ -52,7 +52,7 @@ Friend Class Program
 
                 Dim ms As String = "Sage 300 ERP Error: " & erstr
                 ses.Dispose()
-                MessageBox.Show(ms, "Customer Statement", MessageBoxButtons.OK, MessageBoxIcon.[Error])
+                MessageBox.Show(ms, "Account Statement", MessageBoxButtons.OK, MessageBoxIcon.[Error])
                 Application.[Exit]()
             End Try
         Else
